@@ -1,0 +1,237 @@
+/* ============================================
+   VARIABLES
+   ============================================ */
+:root {
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+
+  --yellow: #facc15;
+  --yellow-hover: #eab308;
+
+  --blue: #3b82f6;
+  --blue-hover: #2563eb;
+
+  --text: #1f2937;
+  --text-h: #111827;
+  --text-muted: #6b7280;
+
+  --bg: #f9fafb;
+  --bg-card: #ffffff;
+  --border: #e5e7eb;
+
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  --radius: 10px;
+  --radius-lg: 16px;
+  --transition: all 0.25s ease;
+}
+
+/* ============================================
+   BASE
+   ============================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #f0f4ff 0%, #fdf2f8 100%);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+#root {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 20px;
+}
+
+h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--text-h);
+  margin-bottom: 20px;
+}
+
+main > h1 {
+  color: #8b5cf6;
+}
+
+/* ============================================
+   CONTENEUR
+   ============================================ */
+.todo-container {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+}
+
+/* ============================================
+   FORMULAIRE
+   ============================================ */
+.todo-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  margin-bottom: 28px;
+  align-items: center;
+}
+
+.todo-form label {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.todo-form input[type='text'] {
+  width: 100%;
+  min-width: 0;
+  max-width: 850px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  transition: var(--transition);
+}
+
+.todo-form input[type='text']:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+  background: #fff;
+}
+
+/* ============================================
+   BOUTON — 3 ÉTATS : défaut / jaune / bleu
+   ============================================ */
+.todo-form button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.todo-form button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.todo-form button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 🟡 ÉTAT "AJOUT EN COURS" → JAUNE */
+.todo-form button.btn-adding {
+  background: var(--yellow);
+  color: #1f2937;
+  border-color: var(--yellow-hover);
+  box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.25);
+  animation: pulse-yellow 0.6s ease-in-out infinite alternate;
+}
+
+.todo-form button.btn-adding:hover {
+  background: var(--yellow-hover);
+}
+
+@keyframes pulse-yellow {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
+
+/* 🔵 ÉTAT "TERMINÉ" → BLEU (reste après l'opération) */
+.todo-form button.btn-done {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue-hover);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+  animation: none;
+}
+
+.todo-form button.btn-done:hover {
+  background: var(--blue-hover);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   LISTE DES TÂCHES
+   ============================================ */
+.todo-container ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+}
+
+.todo-container li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  color: var(--text-h);
+  transition: var(--transition);
+  animation: slide-in 0.3s ease-out;
+}
+
+.todo-container li span {
+  overflow-wrap: anywhere;
+}
+
+.todo-container li .btn-delete {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  color: #fff;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: #dc2626;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.todo-container li .btn-delete:hover {
+  background: #b91c1c;
+}
+
+.todo-container li .btn-delete:focus-visible {
+  outline: 2px solid #dc2626;
+  outline-offset: 2px;
+}
+
+.todo-container li:hover {
+  background: #fff;
+  border-color: #cbd5e1;
+  box-shadow: var(--shadow);
+  transform: translateX(2px);
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
